@@ -1,0 +1,458 @@
+.cooking-scene {
+  --cook-base-duration: 4.4s;
+  --cook-duration: var(--cook-base-duration);
+}
+
+.cooking-scene[data-cooking-scene="pressure"],
+.cooking-scene[data-cooking-scene="boil"],
+.cooking-scene[data-cooking-scene="grill"] {
+  --cook-duration: 5.8s;
+}
+
+:where(.cooking-scene) svg :where([class^="cook-"]) {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.cook-timeline { animation: cook-progress var(--cook-duration) linear both; }
+.cooking-scene[data-cooking-scene="pan"] .cook-timeline {
+  animation-duration: calc(var(--cook-duration) + 850ms);
+}
+.cook-burner-jet {
+  transform-origin: center bottom;
+  animation: cook-burner-jet var(--jet-duration) ease-in-out infinite alternate;
+}
+
+.cook-burner-glow { animation: cook-burner-glow 780ms ease-in-out infinite alternate; }
+.cook-pan { animation: cook-pan var(--cook-duration) ease-in-out both; }
+.cook-spatula { transform-origin: 84% 16%; animation: cook-stir var(--cook-duration) ease-in-out both; }
+.cook-pan-ingredients { animation: cook-pan-ingredients var(--cook-duration) ease-in-out both; }
+.cook-toss { animation: cook-toss var(--cook-duration) ease-in-out both; }
+.cook-bottle { transform-origin: 80% 28%; animation: cook-bottle var(--cook-duration) ease-in-out both; }
+.cook-oil { animation: cook-oil var(--cook-duration) linear both; }
+.cook-oil-reveal { transform-origin: top; animation: cook-oil-reveal var(--cook-duration) ease-out both; }
+.cook-oil-ripples { animation: cook-oil-ripples var(--cook-duration) ease-out both; }
+.cook-flare { transform-origin: center bottom; animation: cook-flare var(--cook-base-duration) ease-out both; }
+.cooking-scene[data-cooking-scene="boil"] .cook-flare { animation-name: cook-flare-surge; }
+.cook-flare-tongue {
+  transform-origin: center bottom;
+  animation: cook-flare-flicker 255ms ease-in-out infinite alternate;
+}
+.cook-flare-center { --flame-lean: 7deg; animation-duration: 350ms; }
+.cook-flare-left { --flame-lean: -12deg; animation-delay: -140ms; }
+.cook-flare-right { --flame-lean: 13deg; animation-delay: -200ms; animation-duration: 285ms; }
+.cook-room-fire { animation-duration: var(--cook-duration); animation-timing-function: ease-in-out; animation-fill-mode: both; }
+.cook-room-fire-back { animation-name: cook-room-fire-back; }
+.cook-room-fire-front { animation-name: cook-room-fire-front; }
+.cooking-scene[data-cooking-scene="pan"] .cook-room-fire {
+  transform-box: view-box;
+  transform-origin: 50% 72%;
+}
+.cooking-scene[data-cooking-scene="pan"] .cook-room-fire-back { animation-name: cook-pan-fire-back; }
+.cooking-scene[data-cooking-scene="pan"] .cook-room-fire-front { animation-name: cook-pan-fire-front; }
+.cook-room-fire-light { animation: cook-room-fire-light var(--cook-duration) ease-in-out both; }
+.cook-room-flame {
+  transform-origin: center bottom;
+  animation: cook-room-flame var(--room-flame-cycle) ease-in-out infinite alternate;
+}
+
+.cook-pressure-body {
+  transform-box: view-box;
+  transform-origin: 50% 72%;
+  animation: cook-pressure-shake var(--cook-duration) linear both;
+}
+.cook-pressure-lid-rest { animation: cook-pressure-release var(--cook-duration) linear both; }
+.cook-pressure-steam { animation: cook-pressure-steam var(--cook-duration) linear both; }
+
+.cook-pressure-jet-stream,
+.cook-pressure-jet-puff {
+  transform-origin: left center;
+  animation-duration: var(--pressure-jet-cycle);
+  animation-delay: var(--pressure-jet-phase);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.cook-pressure-jet-stream { animation-name: cook-pressure-jet-stream; }
+.cook-pressure-jet-puff { animation-name: cook-pressure-jet-puff; filter: saturate(0.32) brightness(1.12); }
+.cook-pressure-burst { transform-origin: center 65%; animation: cook-pressure-burst var(--cook-duration) ease-out both; }
+.cook-pressure-lid-flight { animation: cook-pressure-lid-flight var(--cook-duration) linear both; }
+.cook-pressure-impact { animation: cook-pressure-impact var(--cook-duration) linear both; }
+.cook-glass-line { stroke-dasharray: 100; animation: cook-pressure-fracture var(--cook-duration) linear both; }
+.cook-glass-facets { animation: cook-glass-distortion var(--cook-duration) ease-out both; }
+.cook-glass-hairline { stroke-dasharray: 100; animation: cook-glass-hairline var(--cook-duration) ease-out both; }
+.cook-glass-splits { animation: cook-glass-distortion var(--cook-duration) ease-out both; }
+.cook-glass-chip { animation: cook-glass-chip var(--cook-duration) ease-out both; }
+.cook-glass-fleck { animation: cook-glass-fleck var(--cook-duration) ease-out both; }
+.cook-steam { animation: cook-steam 900ms ease-out infinite; }
+.cook-boil-bubbles { animation: cook-steam 540ms ease-out infinite; }
+.cook-overflow { animation: cook-overflow var(--cook-base-duration) ease-out both; }
+.cook-overflow-reveal { transform-origin: top; animation: cook-overflow-reveal var(--cook-base-duration) ease-in-out both; }
+.cook-overflow-pool { transform-origin: 82% 55%; animation: cook-overflow-pool var(--cook-base-duration) ease-out both; }
+.cook-overflow-current {
+  stroke-dasharray: 13 87;
+  animation: cook-overflow-current 570ms linear infinite;
+}
+.cook-overflow-current-late { animation-delay: -260ms; }
+.cook-glow { animation: cook-glow var(--cook-base-duration) ease-out both; }
+.cook-coals { animation: cook-coals 650ms ease-in-out infinite alternate; }
+.cook-skewers { animation: cook-char var(--cook-base-duration) ease-in both; }
+.cook-grill-smoke,
+.cook-grill-smoke-drift,
+.cook-grill-smoke-bank {
+  transform-origin: center bottom;
+  animation-duration: var(--cook-duration);
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+.cook-grill-smoke { animation-name: cook-smoke; }
+.cook-grill-smoke-drift { animation-name: cook-smoke-drift; }
+.cook-grill-smoke-bank { animation-name: cook-smoke-bank; }
+.cook-grill-smoke-dense {
+  transform-box: view-box;
+  transform-origin: 50% 52%;
+  filter: brightness(0.48);
+  animation: cook-smoke-dense var(--cook-duration) ease-in-out both;
+}
+
+.cook-grill-smoke-roll {
+  animation: cook-smoke-roll var(--cook-duration) ease-out both;
+}
+.cook-mix-bowl { animation: cook-bowl var(--cook-duration) ease-in both; }
+.cook-mix-food { animation: cook-mix-food var(--cook-duration) ease-in-out both; }
+.cook-mix-hand { animation: cook-mix-hand var(--cook-duration) ease-in-out both; }
+.cook-mix-hand-left { --hand-reach: 15px; --hand-turn: 5deg; transform-origin: left top; }
+.cook-mix-hand-right { --hand-reach: -15px; --hand-turn: -5deg; transform-origin: right top; }
+.cook-scatter-piece { animation: cook-scatter var(--cook-duration) ease-in-out both; }
+
+@keyframes cook-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes cook-burner-jet {
+  0% { scale: 0.92 0.62; opacity: 0.46; }
+  54% { scale: 1.04 1.32; opacity: 1; }
+  100% { scale: 0.95 0.96; opacity: 0.75; }
+}
+
+@keyframes cook-burner-jet-soft {
+  from { scale: 1 0.89; opacity: 0.65; }
+  to { scale: 1 1.07; opacity: 0.94; }
+}
+
+@keyframes cook-burner-glow {
+  from { opacity: 0.35; }
+  to { opacity: 0.8; }
+}
+@keyframes cook-pan { 0%, 34%, 59%, 100% { rotate: 0deg; } 15%, 45% { rotate: -6deg; } 24%, 53% { rotate: 3deg; } }
+@keyframes cook-stir {
+  0%, 24%, 48% { translate: 0 0; rotate: -5deg; opacity: 1; }
+  12%, 36%, 54% { translate: -16px 6px; rotate: 8deg; opacity: 1; }
+  65%, 100% { translate: 88px -103px; rotate: 3deg; opacity: 0; }
+}
+@keyframes cook-pan-ingredients {
+  0%, 24%, 47%, 100% { translate: 0 0; }
+  13%, 36% { translate: 5px -8px; }
+}
+@keyframes cook-toss {
+  0%, 25%, 48%, 100% { translate: 0 0; rotate: 0deg; }
+  13%, 36% { translate: var(--stir-toss-x) var(--stir-toss-y); rotate: var(--stir-toss-turn); }
+}
+@keyframes cook-bottle {
+  0%, 49% { translate: 70px -90px; rotate: 7deg; opacity: 0; }
+  59%, 77% { translate: 0 0; rotate: 0deg; opacity: 1; }
+  86%, 100% { translate: 85px -107px; rotate: 9deg; opacity: 0; }
+}
+@keyframes cook-oil {
+  0%, 59%, 82%, 100% { opacity: 0; }
+  64%, 76% { opacity: 1; }
+}
+@keyframes cook-oil-reveal {
+  0%, 59% { scale: 1 0; }
+  65%, 100% { scale: 1 1; }
+}
+@keyframes cook-oil-ripples {
+  0%, 64%, 87%, 100% { opacity: 0; scale: 0.6; }
+  69%, 76% { opacity: .76; scale: 1; }
+  82% { opacity: 0.42; scale: 1.18; }
+}
+@keyframes cook-flare {
+  0%, 70% { opacity: 0; scale: 0.7 0.18; }
+  78% { opacity: 0.78; scale: 0.98 0.96; rotate: -3deg; }
+  87% { opacity: 0.98; scale: 1.28 1.39; rotate: 2deg; }
+  94% { opacity: 0.88; scale: 1.2 1.21; rotate: -2deg; }
+  100% { opacity: 0.77; scale: 1.23 1.29; rotate: 0deg; }
+}
+@keyframes cook-flare-surge {
+  0%, 70% { opacity: 0; scale: 0.72 0.18; }
+  78% { opacity: 0.85; scale: 1.13 1.04; rotate: -2deg; }
+  87% { opacity: 1; scale: 1.65 1.83; rotate: 2deg; }
+  94% { opacity: 0.96; scale: 1.54 1.64; rotate: -2deg; }
+  100% { opacity: 0.9; scale: 1.61 1.77; rotate: 0deg; }
+}
+
+@keyframes cook-room-fire-back {
+  0%, 67% { opacity: 0; }
+  76% { opacity: 0.4; }
+  91%, 100% { opacity: 1; }
+}
+
+@keyframes cook-room-fire-front {
+  0%, 69% { opacity: 0; }
+  81% { opacity: 0.58; }
+  94%, 100% { opacity: 1; }
+}
+
+@keyframes cook-pan-fire-back {
+  0%, 74% { opacity: 0; scale: .52 .65; }
+  82% { opacity: .65; }
+  96%, 100% { opacity: 1; scale: 1; }
+}
+
+@keyframes cook-pan-fire-front {
+  0%, 78% { opacity: 0; scale: .55 .7; }
+  87% { opacity: .72; }
+  97%, 100% { opacity: 1; scale: 1; }
+}
+
+@keyframes cook-room-fire-light {
+  0%, 70% { opacity: 0; }
+  91% { opacity: 0.75; }
+  100% { opacity: 1; }
+}
+
+@keyframes cook-room-flame {
+  from { opacity: 0.78; scale: 1.01 0.82; rotate: calc(-0.5 * var(--room-flame-lean)); }
+  to { opacity: 1; scale: 1.05 1.4; rotate: var(--room-flame-lean); }
+}
+
+@keyframes cook-flare-flicker {
+  0% { opacity: 0.68; scale: 1.03 0.72; rotate: calc(-0.45 * var(--flame-lean)); }
+  58% { opacity: 1; scale: 0.89 1.19; rotate: var(--flame-lean); }
+  100% { opacity: 0.86; scale: 1.06 0.94; rotate: calc(-0.7 * var(--flame-lean)); }
+}
+
+@keyframes cook-flare-soft-flicker {
+  from { opacity: 0.78; scale: 1 0.93; }
+  to { opacity: 1; scale: 0.99 1.06; }
+}
+
+@keyframes cook-pressure-shake {
+  0%, 23%, 43%, 53%, 68% { rotate: 0deg; }
+  27%, 38%, 47%, 56%, 65% { rotate: -4deg; }
+  33%, 41%, 50%, 60%, 67% { rotate: 4deg; }
+  69% { opacity: 1; translate: 0 0; }
+  78% { opacity: 0; translate: -12px 21px; rotate: -12deg; }
+  100% { opacity: 0; }
+}
+
+@keyframes cook-pressure-release {
+  0%, 67% { opacity: 1; }
+  68%, 100% { opacity: 0; }
+}
+
+@keyframes cook-pressure-steam {
+  0%, 16% { opacity: 0; }
+  26% { opacity: 0.76; }
+  48%, 63% { opacity: 1; }
+  67%, 100% { opacity: 0; }
+}
+
+@keyframes cook-pressure-jet-stream {
+  0%, 100% { scale: 0.38 0.49; opacity: 0.12; }
+  15% { scale: 0.92 0.66; opacity: 0.92; }
+  36% { scale: 1.21 1.12; opacity: 0.98; }
+  71% { scale: 0.97 0.81; opacity: 0.74; }
+}
+
+@keyframes cook-pressure-jet-puff {
+  0% { translate: -18px 1px; scale: 0.39 0.4; opacity: 0; }
+  21% { translate: -5px 0; scale: 0.74 0.76; opacity: 0.97; }
+  50% { translate: 13px -2px; scale: 1.04 1.1; opacity: 0.9; }
+  79% { translate: 30px -6px; scale: 1.16 1.33; opacity: 0.48; }
+  100% { translate: 44px -9px; scale: 1.26 1.47; opacity: 0; }
+}
+
+@keyframes cook-pressure-burst {
+  0%, 66% { opacity: 0; scale: 0.15 0.12; }
+  71% { opacity: 1; scale: 0.95 0.96; }
+  79% { opacity: 0.97; scale: 1.65 1.58; translate: 2px -23px; }
+  89% { opacity: 0.57; scale: 1.9 1.85; translate: -9px -40px; }
+  100% { opacity: 0.2; scale: 2.12; translate: -21px -62px; }
+}
+
+@keyframes cook-pressure-lid-flight {
+  0%, 67% { opacity: 0; scale: 1; translate: 0 0; rotate: 0deg; }
+  68% { opacity: 1; scale: 1; translate: 0 0; rotate: 0deg; }
+  74% { opacity: 1; scale: 1.45 1.59; translate: -21px 2px; rotate: -19deg; }
+  81% { opacity: 1; scale: 3.07 3.6; translate: -19px 49px; rotate: 26deg; }
+  84% { opacity: 1; scale: 4.15 4.7; translate: -30px 61px; rotate: 34deg; }
+  89%, 100% { opacity: 0; scale: 4.23 4.9; translate: -35px 74px; rotate: 38deg; }
+}
+
+@keyframes cook-pressure-impact {
+  0%, 83% { opacity: 0; }
+  85%, 100% { opacity: 1; }
+}
+
+@keyframes cook-pressure-fracture {
+  0%, 83% { stroke-dashoffset: 100; }
+  88%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes cook-glass-distortion {
+  0%, 84% { opacity: 0; }
+  91%, 100% { opacity: 1; }
+}
+
+@keyframes cook-glass-hairline {
+  0%, 85% { stroke-dashoffset: 100; }
+  92%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes cook-glass-chip {
+  0%, 83.5% { opacity: 0; scale: 0.7; }
+  86%, 100% { opacity: 1; scale: 1; }
+}
+
+@keyframes cook-glass-fleck {
+  0%, 84% { opacity: 0; translate: 0 0; }
+  87% { opacity: 0.86; }
+  96%, 100% { opacity: 0; translate: var(--glass-chip-x) var(--glass-chip-y); }
+}
+
+@keyframes cook-pressure-camera {
+  0%, 37% { scale: 1; }
+  82%, 83% { scale: 1.045; translate: 0 0; }
+  85% { scale: 1.09; translate: 5px -3px; }
+  87% { scale: 1.065; translate: -4px 3px; }
+  92%, 100% { scale: 1.045; translate: 0 0; }
+}
+
+@keyframes cook-steam { from { opacity: 0.85; translate: 0 8px; } to { opacity: 0; translate: 0 -22px; } }
+@keyframes cook-overflow {
+  0%, 43% { opacity: 0; }
+  55%, 87% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes cook-overflow-reveal {
+  0%, 47% { scale: 1 0; }
+  58% { scale: 1 0.44; }
+  75%, 100% { scale: 1 1; }
+}
+
+@keyframes cook-overflow-pool {
+  0%, 65% { opacity: 0; scale: 0.12 0.4; }
+  74% { opacity: 0.62; scale: 0.48 0.78; }
+  100% { opacity: 0.94; scale: 1 1; }
+}
+
+@keyframes cook-overflow-current {
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: -72; }
+}
+@keyframes cook-glow { 0%, 76% { opacity: 0; } 89% { opacity: 0.62; } 100% { opacity: 0.18; } }
+@keyframes cook-coals { from { opacity: 0.2; } to { opacity: 0.48; } }
+@keyframes cook-char {
+  0%, 46% { filter: brightness(1) saturate(1); }
+  76% { filter: brightness(0.74) saturate(0.83); }
+  100% { filter: brightness(0.5) saturate(0.64); }
+}
+
+@keyframes cook-smoke {
+  0%, 24% { opacity: 0; scale: 0.45 0.55; translate: -3px 9px; }
+  42% { opacity: 0.42; scale: 0.82 0.96; translate: 3px -9px; }
+  61% { opacity: 0.82; scale: 1.85 1.44; translate: 12px -25px; }
+  76% { opacity: 0.93; scale: 2.85 1.92; translate: 18px -37px; }
+  100% { opacity: 1; scale: 3.55 2.2; translate: 31px -49px; }
+}
+
+@keyframes cook-smoke-drift {
+  0%, 36% { opacity: 0; scale: 0.48 0.53; translate: 3px 0; }
+  51% { opacity: 0.31; scale: 1.01 0.98; translate: -14px -5px; }
+  76% { opacity: 0.72; scale: 2.46 1.62; translate: -71px -18px; }
+  100% { opacity: 0.92; scale: 3.15 2.05; translate: -92px -32px; }
+}
+@keyframes cook-smoke-bank {
+  0%, 45% { opacity: 0; scale: 0.4 0.5; translate: 12px 12px; }
+  56% { opacity: 0.64; scale: 0.95 1.05; translate: -28px -1px; }
+  68% { opacity: 1; scale: 1.8 1.5; translate: 4px -29px; }
+  100% { opacity: 1; scale: 2.5 1.95; translate: 15px -37px; }
+}
+
+@keyframes cook-smoke-dense {
+  0%, 62% { opacity: 0; scale: 0.22 0.2; translate: 0 16px; }
+  74% { opacity: 0.48; scale: 0.5 0.47; translate: 0 9px; }
+  87% { opacity: 0.88; scale: 0.85 0.84; translate: 0 0; }
+  96%, 100% { opacity: 1; scale: 1.07; translate: 0 -3px; }
+}
+
+@keyframes cook-smoke-roll {
+  0%, 61% { translate: 0 8px; }
+  100% { translate: var(--smoke-drift) -9px; }
+}
+
+@keyframes cook-bowl { 0%, 56% { translate: 0 0; rotate: 0deg; } 68% { translate: 48px 5px; rotate: 24deg; } 100% { translate: 105px 157px; rotate: 107deg; } }
+@keyframes cook-mix-food { 0%, 24%, 50% { translate: 0 0; } 12%, 37% { translate: 0 -21px; } 59% { opacity: 1; } 65%, 100% { opacity: 0; } }
+@keyframes cook-mix-hand {
+  0%, 24%, 48% { translate: 0 0; rotate: calc(-0.45 * var(--hand-turn)); }
+  12%, 36% { translate: var(--hand-reach) 11px; rotate: var(--hand-turn); }
+  63% { translate: var(--hand-reach) -7px; rotate: var(--hand-turn); opacity: 1; }
+  81%, 100% { translate: calc(-2 * var(--hand-reach)) -95px; opacity: 0; }
+}
+
+@keyframes cook-scatter {
+  0%, 59% { opacity: 0; translate: 0 0; }
+  63% { opacity: 1; }
+  77% { translate: calc(var(--piece-x) * 0.65) -40px; }
+  100% { opacity: 1; translate: var(--piece-x) var(--piece-y); rotate: var(--piece-turn); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cook-burner-jet { animation-name: cook-burner-jet-soft; animation-duration: 740ms; }
+  .cook-burner-glow { animation: none; opacity: 0.42; }
+  .cook-flare-tongue,
+  .cook-room-flame { animation-name: cook-flare-soft-flicker; animation-duration: 720ms; }
+  .cook-coals { animation: none; }
+  .cook-glow { animation: none; opacity: 0; }
+}
+
+.cooking-dialog[open] { display: flex; }
+html:has(.cooking-dialog[open]) { overflow: hidden; }
+
+.cooking-dialog-stage {
+  container-type: size;
+}
+
+.cooking-dialog-stage > .cooking-scene {
+  width: min(100%, calc((100cqh - 3rem) * 1.41176));
+  max-width: 74rem;
+}
+
+.cook-camera {
+  transform-box: view-box;
+  transform-origin: 50% 58%;
+  animation: cook-camera var(--cook-base-duration) ease-in-out both;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cooking-scene[data-cooking-scene="pressure"] .cook-camera {
+    animation: cook-pressure-camera var(--cook-duration) ease-out both;
+  }
+}
+
+.cook-oil-bubbles { animation: cook-oil-bubbles 720ms ease-in-out infinite alternate; }
+
+@keyframes cook-camera {
+  0%, 30% { scale: 1; }
+  100% { scale: 1.045; }
+}
+
+@keyframes cook-oil-bubbles {
+  from { opacity: 0.3; translate: 0 1px; }
+  to { opacity: 0.84; translate: 0 -2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cook-camera,
+  .cook-oil-bubbles { animation: none; }
+  .cook-glass-chips { display: none; }
+}
